@@ -32,45 +32,28 @@ router.get('/animalWithFood/:id',async(req,res,next)=>{
   res.status(200).send(animalWithFood);
 });
 
+// UPDATE
 
-
-
-
-
+router.put('/animals/:id',async (req, res, next)=>{
+  let {id}= req.params;
+  let animal = await animalsInterface.update(req.body,id);
+  res.status(200).send(animal);
+});
 
 
 //DELETE
 
-router.delete('/animal/:animalId', deleteAnimal);
+router.delete('/animals/:id',async(req, res, next)=>{
 
-async function deleteAnimal(req, res, next) {
-  const id = req.params.animalId;
-  console.log(id);
-  try {
-    await Animal.findByIdAndDelete(id);
-    res.status(204).send('successful!');
-  } catch (error) {
-    next(error);
+  try{
+    let{id}=req.params;
+
+    let message = await animalsInterface.delete(id);
+    res.status(200).send(message);
+  }catch(err){
+    next(err.message);
   }
-}
-// UPDATE
-
-router.put('/animal/:animalId', putAnimal);
-
-async function putAnimal(req, res, next){
-  let id = req.params.animalId;
-  try {
-    let data = req.body;
-
-    const updateAnimal = await Animal.findByIdAndUpdate(id, data, { new: true, overwrite: true });
-    res.status(201).send(updateAnimal);
-
-  } catch (error) {
-    next(error);
-
-  }
-}
-
+} );
 
 module.exports = router;
 
