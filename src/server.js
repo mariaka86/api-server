@@ -17,7 +17,6 @@ app.get('/', (req, res, next) => {
 
 
 app.use(express.json());
-
 app.use(foodRouter);
 app.use(animalsRouter);
 

@@ -4,9 +4,8 @@ const express = require('express');
 const { foodInterface} = require('../models/index');
 const router = express.Router();
 
-router.post('/food', async (req, res, send) => {
+router.post('/food', async(req, res, send) => {
   console.log('req body', req.body);
-
   const newFood = await foodInterface.create(req.body);
   res.status(200).send(newFood);
 });
